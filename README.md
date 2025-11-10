@@ -16,16 +16,7 @@ docker run -d \
   -v /path/to/local/isos:/srv/isos:ro \
   supermicro-smb
 ```
-
-### Notes
-
-- `/srv/isos` must contain the ISO images you want the Supermicro BMC to access; the container runs Samba in read-only mode for that share.
-- The bundled `smb.conf` enforces SMBv1/NTLM settings required by older IPMI/BMC firmware. Replace `smb.conf` during the build if you need different settings.
-- SMBv1, LANMAN, and NTLMv1 are cryptographically weak and susceptible to relay/downgrade attacks; isolate the container on a dedicated management network or restrict access with firewall rules so only the intended BMC can reach UDP 137/138 and TCP 139/445.
-
-## Docker Compose
-
-
+### Docker Compose Example
 ```yaml
 services:
   supermicro-smb:
@@ -39,4 +30,18 @@ services:
       - "445:445"
     volumes:
       - /path/to/local/isos:/srv/isos:ro
+```
+
+### Notes
+
+- `/srv/isos` must contain the ISO images you want the Supermicro BMC to access; the container runs Samba in read-only mode for that share.
+- The bundled `smb.conf` enforces SMBv1/NTLM settings required by older IPMI/BMC firmware. Replace `smb.conf` during the build if you need different settings.
+- SMBv1, LANMAN, and NTLMv1 are cryptographically weak and susceptible to relay/downgrade attacks; isolate the container on a dedicated management network or restrict access with firewall rules so only the intended BMC can reach UDP 137/138 and TCP 139/445.
+
+## Usage
+
+In Supermicro CD-ROM Image Settings:
+```
+Share Host: <IP ADDR>
+Path to Image: \isos\<ISO_FILENAME>
 ```
