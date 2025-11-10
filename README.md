@@ -1,4 +1,4 @@
-# docker-supermicro-smb
+# Supermicro SMB
 
 Container that facilitates mounting virtual media for older Supermicro BMCs.
 
@@ -8,7 +8,7 @@ Expose the classic SMB ports and bind-mount the directory containing your ISO fi
 
 ```bash
 docker run -d \
-  --name supermicro-smb \
+  --name ghcr.io/veloslab/supermicro-smb:latest \
   -p 137:137/udp \
   -p 138:138/udp \
   -p 139:139 \
