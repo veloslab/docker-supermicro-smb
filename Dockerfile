@@ -26,5 +26,5 @@ EXPOSE 137/udp 138/udp 139 445
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
     CMD smbcontrol smbd ping || exit 1
 
-# Run smbd in the foreground and log to stdout/stderr.
-CMD ["/usr/sbin/smbd", "--foreground", "--no-process-group", "--log-stdout", "--configfile=/etc/samba/smb.conf"]
+# Run smbd in the foreground and keep logs on stdout/stderr.
+CMD ["/usr/sbin/smbd", "--foreground", "--no-process-group", "--debug-stdout", "--configfile=/etc/samba/smb.conf"]
